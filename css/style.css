@@ -27,16 +27,16 @@
 }
 
 body {
-    font-family: var(--font-family);
-    color: var(--text-color);
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light grey text */
     line-height: 1.6;
-    background-color: var(--background-color);
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
+    color: #ffffff;
 }
 
 p {
@@ -44,8 +44,13 @@ p {
 }
 
 a {
-    color: var(--secondary-color);
+    color: #bb86fc; /* A nice purple for links */
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #3700b3;
 }
 
 img {
@@ -59,23 +64,24 @@ img {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.85);
+    background-color: rgba(18, 18, 18, 0.8); /* Slightly transparent dark bg */
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #333;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .nav-logo {
-    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    font-size: 1.8rem;
+    color: #ffffff;
 }
 
 .nav-menu {
-    display: flex;
     list-style: none;
+    display: flex;
+    gap: 2rem;
 }
 
 .nav-item {
@@ -87,77 +93,113 @@ img {
     transition: color 0.3s ease;
 }
 
-.nav-link:hover, .nav-link.active {
-    color: var(--secondary-color);
+.nav-link.active {
+    color: #bb86fc;
     font-weight: 700;
 }
 
 /* 3. Hero Section */
 .hero {
-    height: 60vh;
+    height: 70vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    color: white;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x900/?abstract,art') no-repeat center center/cover;
-    /* Consider replacing the unsplash URL with one of your own landscape-oriented images */
+    background: url('../images/1.jpg') no-repeat center center/cover; /* Dynamic hero background */
+    position: relative;
 }
 
-.hero-text h1 {
-    font-size: 3rem;
-    color: white;
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* Dark overlay */
 }
 
-.hero-text p {
+.hero-text {
+    z-index: 10;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
     font-size: 1.2rem;
-    font-weight: 300;
+    margin-bottom: 2rem;
 }
 
 /* 4. General Content & Buttons */
 .content-section {
-    padding: 4rem 2rem;
+    padding: 2rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .page-header {
     text-align: center;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #333;
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 3rem;
 }
 
 .bg-light {
-    background-color: var(--light-bg-color);
+    background-color: #1e1e1e; /* Slightly lighter dark section */
 }
 
 .btn {
     display: inline-block;
-    background: var(--secondary-color);
-    color: white;
-    padding: 0.8rem 1.5rem;
+    background-color: #bb86fc;
+    color: #121212;
+    padding: 1rem 2rem;
     border-radius: 5px;
     font-weight: 700;
+    text-transform: uppercase;
     margin-top: 1rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .btn:hover {
-    background: #434190;
-    transform: translateY(-2px);
+    background-color: #3700b3;
+    color: #ffffff;
+    transform: translateY(-3px);
 }
 
 /* 5. Layouts (Featured, Bio, About) */
 .featured-gallery {
     display: grid;
+    grid-gap: 1rem;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 300px);
-    gap: 1rem;
+    grid-template-rows: repeat(2, 250px);
 }
 
 .featured-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item img, .featured-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover img, .featured-item:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
 /* This creates the unique asymmetrical layout */
@@ -184,72 +226,58 @@ img {
 .bio-text, .about-text { flex-grow: 1; }
 
 /* 6. Gallery Styles */
-.full-gallery {
+.full-gallery, .featured-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
 }
 
-.gallery-item {
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
+.full-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
-.gallery-item img {
-    transition: transform 0.4s ease-in-out;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.05);
+.featured-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 /* 7. Lightbox / Modal */
 .lightbox {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 1001;
+    padding-top: 60px;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
 }
 
 .lightbox-content {
-    max-width: 90%;
-    max-height: 85%;
-    animation: zoomIn 0.3s ease;
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
 }
 
 .close-lightbox {
     position: absolute;
-    top: 2rem;
-    right: 2.5rem;
-    color: #fff;
-    font-size: 3rem;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
     font-weight: bold;
+    transition: 0.3s;
     cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close-lightbox:hover {
-    color: #bbb;
-}
-
-@keyframes zoomIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
 }
 
 /* 8. Footer */
 footer {
     text-align: center;
     padding: 2rem;
-    background: var(--primary-color);
-    color: #e2e8f0;
+    margin-top: 2rem;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
 }
 
 /* 9. Responsive Design */
