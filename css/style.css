@@ -1,42 +1,47 @@
-/* --- TABLE OF CONTENTS ---
-1.  Global Styles & Variables
-2.  Navigation Bar
-3.  Hero Section
-4.  General Content & Buttons
-5.  Layouts (Featured, Bio, About)
-6.  Gallery Styles
-7.  Lightbox / Modal
-8.  Footer
-9.  Responsive Design
---------------------------- */
-
-/* 1. Global Styles & Variables */
+/* Reset and Base Styles */
 :root {
     --primary-color: #333;
-    --secondary-color: #5a67d8; /* A nice accent blue */
-    --background-color: #ffffff;
-    --light-bg-color: #f7fafc;
-    --text-color: #4a4a4a;
-    --font-family: 'Montserrat', sans-serif;
+    --secondary-color: #f4f4f4;
+    --accent-color: #e67e22;
+    --light-text: #fff;
+    --dark-text: #333;
+    --body-font: 'Montserrat', sans-serif;
+    --header-font: 'Montserrat', sans-serif;
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    background-color: #121212; /* Dark background */
-    color: #e0e0e0; /* Light grey text */
+    font-family: var(--body-font);
     line-height: 1.6;
+    color: var(--dark-text);
+    background-color: var(--secondary-color);
+    background-image: url('../images/14.jpg'); /* Decorative background */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9); /* Light overlay */
+    z-index: -1;
 }
 
 h1, h2, h3, h4 {
+    font-family: var(--header-font);
     font-weight: 700;
-    color: #ffffff;
+    margin-bottom: 1rem;
 }
 
 p {
@@ -44,87 +49,69 @@ p {
 }
 
 a {
-    color: #bb86fc; /* A nice purple for links */
     text-decoration: none;
-    transition: color 0.3s ease;
+    color: var(--accent-color);
 }
 
-a:hover {
-    color: #3700b3;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-}
-
-/* 2. Navigation Bar */
+/* Navigation */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: rgba(18, 18, 18, 0.8); /* Slightly transparent dark bg */
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #ddd;
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
 }
 
 .nav-logo {
+    font-size: 1.5rem;
     font-weight: 700;
-    font-size: 1.8rem;
-    color: #ffffff;
+    color: var(--primary-color);
 }
 
 .nav-menu {
-    list-style: none;
     display: flex;
-    gap: 2rem;
+    list-style: none;
 }
 
 .nav-item {
-    margin-left: 1.5rem;
+    margin-left: 2rem;
 }
 
 .nav-link {
+    color: var(--primary-color);
     font-weight: 400;
     transition: color 0.3s ease;
 }
 
-.nav-link.active {
-    color: #bb86fc;
-    font-weight: 700;
+.nav-link:hover, .nav-link.active {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
 }
 
-/* 3. Hero Section */
+/* Hero Section */
 .hero {
-    height: 70vh;
+    height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: url('../images/1.jpg') no-repeat center center/cover; /* Dynamic hero background */
-    position: relative;
-}
-
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    color: var(--dark-text);
+    padding: 0 2rem;
 }
 
 .hero-text {
-    z-index: 10;
+    max-width: 800px;
 }
 
 .hero h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     margin-bottom: 1rem;
 }
 
@@ -133,236 +120,223 @@ img {
     margin-bottom: 2rem;
 }
 
-/* 4. General Content & Buttons */
+.btn {
+    display: inline-block;
+    background: var(--accent-color);
+    color: var(--light-text);
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #d35400;
+}
+
+/* Content Sections */
 .content-section {
-    padding: 2rem 4rem;
+    padding: 4rem 2rem;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1rem;
+    border-radius: 8px;
 }
 
 .page-header {
     text-align: center;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #333;
-    margin-bottom: 2rem;
+    padding-bottom: 2rem;
 }
 
 .page-header h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
-.bg-light {
-    background-color: #1e1e1e; /* Slightly lighter dark section */
-}
-
-.btn {
-    display: inline-block;
-    background-color: #bb86fc;
-    color: #121212;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #3700b3;
-    color: #ffffff;
-    transform: translateY(-3px);
-}
-
-/* 5. Layouts (Featured, Bio, About) */
+/* Featured Gallery */
 .featured-gallery {
     display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 250px);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
 }
 
 .featured-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    display: block;
+    border-radius: 5px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.gallery-item img, .featured-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gallery-item:hover img, .featured-item:hover img {
+.featured-item:hover img {
     transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* This creates the unique asymmetrical layout */
-.item-1 { grid-column: 1 / 3; grid-row: 1 / 3; }
-.item-2 { grid-column: 3 / 4; grid-row: 1 / 2; }
-.item-3 { grid-column: 4 / 5; grid-row: 1 / 2; }
-.item-4 { grid-column: 3 / 4; grid-row: 2 / 3; }
-.item-5 { grid-column: 4 / 5; grid-row: 2 / 3; }
+/* Bio Teaser */
+.bg-light {
+    background: rgba(244, 244, 244, 0.9);
+}
 
-.bio-teaser, .about-content {
+.bio-teaser {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    justify-content: center;
+    text-align: center;
 }
 
-.bio-headshot, .about-headshot {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-.about-headshot { width: 250px; height: 250px; }
-.bio-text, .about-text { flex-grow: 1; }
-
-/* 6. Gallery Styles */
-.full-gallery, .featured-gallery {
+/* Full Gallery */
+.focused-gallery {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1rem;
 }
 
-.full-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-}
-
-.featured-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-/* Focused Gallery */
-.focused-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    padding: 20px;
-}
-
-.focused-gallery .gallery-item {
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.focused-gallery .gallery-item img {
+.gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.focused-gallery .gallery-item.focused {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-
-.focused-gallery .gallery-item:hover {
+.gallery-item:hover img {
     transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
 }
 
-/* 7. Lightbox / Modal */
-.lightbox {
-    display: none;
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-}
-
-.lightbox-content {
+/* About Page */
+.about-content {
+    max-width: 800px;
     margin: auto;
-    display: block;
-    width: auto;
-    height: auto;
-    max-width: 80vw;
-    max-height: 80vh;
 }
 
-.close-lightbox {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-    cursor: pointer;
+.about-text h4 {
+    color: var(--accent-color);
+    margin-top: 2rem;
 }
 
-.prev-btn, .next-btn {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 30px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.next-btn {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-.prev-btn {
-    left: 0;
-}
-
-.prev-btn:hover, .next-btn:hover {
-    background-color: rgba(0,0,0,0.8);
-}
-
-/* 8. Footer */
+/* Footer */
 footer {
     text-align: center;
     padding: 2rem;
-    margin-top: 2rem;
-    background-color: #1e1e1e;
-    border-top: 1px solid #333;
+    background: rgba(51, 51, 51, 0.9);
+    color: var(--light-text);
 }
 
-/* 9. Responsive Design */
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+    animation: zoomIn 0.4s ease-in-out;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-lightbox, .prev-btn, .next-btn {
+    position: absolute;
+    cursor: pointer;
+    color: white;
+    font-size: 2.5rem;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.close-lightbox:hover, .prev-btn:hover, .next-btn:hover {
+    color: var(--accent-color);
+}
+
+.close-lightbox {
+    top: 20px;
+    right: 35px;
+    font-size: 3rem;
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .nav-menu { display: none; } /* Simple hide for mobile, can be replaced with a hamburger menu */
-    
-    .hero-text h1 { font-size: 2rem; }
-    
-    .featured-gallery {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-    }
-    /* Reset the grid areas for mobile */
-    .featured-item { grid-column: auto; grid-row: auto; height: 350px;}
-
-    .bio-teaser, .about-content {
+    .navbar {
         flex-direction: column;
-        text-align: center;
+        padding: 1rem;
     }
 
-    .lightbox-content {
-        width: 90%;
+    .nav-menu {
+        margin-top: 1rem;
+    }
+
+    .nav-item {
+        margin: 0 1rem;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .content-section {
+        padding: 3rem 1rem;
+    }
+
+    .featured-gallery, .focused-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .prev-btn, .next-btn {
+        font-size: 2rem;
+        padding: 1rem;
+        background: rgba(0,0,0,0.3);
+        border-radius: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+    }
+    .nav-item {
+        margin: 0.5rem 0;
+    }
+    .hero {
+        height: 60vh;
     }
 }

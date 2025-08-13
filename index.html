@@ -17,6 +17,11 @@
                 <li class="nav-item"><a href="gallery.html" class="nav-link">Галерея</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">Про</a></li>
             </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </nav>
     </header>
 
@@ -35,11 +40,11 @@
             <h2>Вибрані роботи</h2>
             <div class="featured-gallery">
                 <!-- Replace with your 5 best images -->
-                <a href="images/7.jpg" class="featured-item item-1 gallery-item"><img src="images/7.jpg" alt="Artwork 1"></a>
-                <a href="images/8.jpg" class="featured-item item-2 gallery-item"><img src="images/8.jpg" alt="Artwork 2"></a>
-                <a href="images/9.jpg" class="featured-item item-3 gallery-item"><img src="images/9.jpg" alt="Artwork 3"></a>
-                <a href="images/10.jpg" class="featured-item item-4 gallery-item"><img src="images/10.jpg" alt="Artwork 4"></a>
-                <a href="images/11.jpg" class="featured-item item-5 gallery-item"><img src="images/11.jpg" alt="Artwork 5"></a>
+                <a href="images/7.jpg" class="gallery-item"><img src="images/7.jpg" alt="Artwork 1"></a>
+                <a href="images/8.jpg" class="gallery-item"><img src="images/8.jpg" alt="Artwork 2"></a>
+                <a href="images/9.jpg" class="gallery-item"><img src="images/9.jpg" alt="Artwork 3"></a>
+                <a href="images/10.jpg" class="gallery-item"><img src="images/10.jpg" alt="Artwork 4"></a>
+                <a href="images/11.jpg" class="gallery-item"><img src="images/11.jpg" alt="Artwork 5"></a>
             </div>
         </section>
 
@@ -66,9 +71,9 @@
     <!-- Image Lightbox/Modal -->
     <div id="lightbox" class="lightbox">
         <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
         <span class="prev-btn">&lt;</span>
         <span class="next-btn">&gt;</span>
-        <img class="lightbox-content" id="lightbox-img">
     </div>
 
     <script src="js/script.js"></script>
