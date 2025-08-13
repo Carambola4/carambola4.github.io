@@ -1,49 +1,74 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const lightbox = document.getElementById('lightbox');
+    if (!lightbox) return;
+
     const lightboxImg = document.getElementById('lightbox-img');
     const closeBtn = document.querySelector('.close-lightbox');
     const galleryItems = document.querySelectorAll('.gallery-item');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
 
-    // Check if the elements exist before adding event listeners
-    if (galleryItems.length > 0 && lightbox) {
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const imgElement = item.querySelector('img');
-                if(imgElement) {
-                    const imgSrc = imgElement.getAttribute('src');
-                    lightboxImg.setAttribute('src', imgSrc);
-                    lightbox.style.display = 'flex'; // Use flex to center the content
-                }
-            });
-        });
+    if (!lightboxImg || !closeBtn || galleryItems.length === 0 || !prevBtn || !nextBtn) {
+        // If any essential element is missing, don't initialize the lightbox.
+        if (lightbox) lightbox.style.display = 'none';
+        return;
     }
 
-    // Function to close the lightbox
-    function closeLightbox() {
-        if (lightbox) {
-            lightbox.style.display = 'none';
+    const images = Array.from(galleryItems).map(item => item.href);
+    let currentIndex = 0;
+
+    function showImage(index) {
+        if (index >= images.length) {
+            currentIndex = 0;
+        } else if (index < 0) {
+            currentIndex = images.length - 1;
+        } else {
+            currentIndex = index;
         }
+        lightboxImg.src = images[currentIndex];
+        lightbox.style.display = 'flex'; // Use flex for vertical centering
     }
 
-    // Close lightbox when clicking the close button or the background
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeLightbox);
-    }
-    
-    if (lightbox) {
-        lightbox.addEventListener('click', (e) => {
-            // Closes the lightbox only if the dark background is clicked, not the image itself
-            if (e.target === lightbox) {
-                closeLightbox();
-            }
+    galleryItems.forEach((item, index) => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            showImage(index);
         });
+    });
+
+    function closeLightbox() {
+        lightbox.style.display = 'none';
     }
 
-    // Optional: Close lightbox with the Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
+    closeBtn.addEventListener('click', closeLightbox);
+    
+    lightbox.addEventListener('click', (e) => {
+        // Close if clicked outside of the image and buttons
+        if (e.target === lightbox) {
             closeLightbox();
+        }
+    });
+
+    prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent lightbox click event
+        showImage(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent lightbox click event
+        showImage(currentIndex + 1);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.style.display === 'flex') {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                showImage(currentIndex - 1);
+            } else if (e.key === 'ArrowRight') {
+                showImage(currentIndex + 1);
+            }
         }
     });
 
