@@ -269,6 +269,9 @@ footer {
     font-size: 2.5rem;
     user-select: none;
     transition: color 0.2s;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 0 1rem;
 }
 
 .close-lightbox:hover, .prev-btn:hover, .next-btn:hover {
@@ -292,16 +295,52 @@ footer {
 /* Responsive Design */
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column;
-        padding: 1rem;
+        position: relative;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+
+    .hamburger .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        background-color: var(--primary-color);
     }
 
     .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
         margin-top: 1rem;
     }
 
+    .nav-menu.active {
+        display: flex;
+    }
+
     .nav-item {
-        margin: 0 1rem;
+        margin: 1rem 0;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 
     .hero h1 {
@@ -323,7 +362,7 @@ footer {
     .prev-btn, .next-btn {
         font-size: 2rem;
         padding: 1rem;
-        background: rgba(0,0,0,0.3);
+        background: rgba(0,0,0,0.2);
         border-radius: 5px;
     }
 }

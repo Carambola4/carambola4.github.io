@@ -22,22 +22,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
 
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    let gallery = [];
+    let currentGallery = [];
     let currentIndex = 0;
 
-    if (galleryItems.length > 0) {
-        // Create an array of image sources from all gallery items
-        gallery = Array.from(galleryItems).map(item => item.href);
+    // Handle multiple galleries on the same page
+    const galleries = document.querySelectorAll('.featured-gallery, .focused-gallery');
+
+    galleries.forEach(galleryContainer => {
+        const galleryItems = galleryContainer.querySelectorAll('.gallery-item');
+        const imageSources = Array.from(galleryItems).map(item => item.href);
 
         galleryItems.forEach((item, index) => {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
+                currentGallery = imageSources;
                 currentIndex = index;
                 openLightbox(this.href);
             });
         });
-    }
+    });
 
     function openLightbox(src) {
         if (lightbox && lightboxImg) {
@@ -54,21 +57,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showPrev() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : gallery.length - 1;
-        lightboxImg.src = gallery[currentIndex];
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentGallery.length - 1;
+        lightboxImg.src = currentGallery[currentIndex];
         updateNavButtons();
     }
 
     function showNext() {
-        currentIndex = (currentIndex < gallery.length - 1) ? currentIndex + 1 : 0;
-        lightboxImg.src = gallery[currentIndex];
+        currentIndex = (currentIndex < currentGallery.length - 1) ? currentIndex + 1 : 0;
+        lightboxImg.src = currentGallery[currentIndex];
         updateNavButtons();
     }
     
     function updateNavButtons() {
         if (!prevBtn || !nextBtn) return;
         // Hide nav buttons if there's only one image
-        const showButtons = gallery.length > 1;
+        const showButtons = currentGallery.length > 1;
         prevBtn.style.display = showButtons ? 'block' : 'none';
         nextBtn.style.display = showButtons ? 'block' : 'none';
     }
@@ -101,10 +104,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.key === 'Escape') {
                 closeLightbox();
             }
-            if (e.key === 'ArrowLeft' && gallery.length > 1) {
+            if (e.key === 'ArrowLeft' && currentGallery.length > 1) {
                 showPrev();
             }
-            if (e.key === 'ArrowRight' && gallery.length > 1) {
+            if (e.key === 'ArrowRight' && currentGallery.length > 1) {
                 showNext();
             }
         }
